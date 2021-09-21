@@ -1,0 +1,67 @@
+TODO: document your client-server protocol in this file.
+Give the specifications of client requests and server responses, including syntax, preconditions, and postconditions.
+
+// CLIENT REQUESTS
+// Clients can make HTTP requests to the servers with the contexts defined below
+// @PUZZLE a nonempty string of word characters representing the name of the puzzle file (without its ext)
+// @PLAYERID a nonempty string of word characters representing the ID of a player for the puzzle
+// @GAMEID an int >= 0 that represents the ID for an existing puzzle game
+// @INDEX an int in the valid range of entries in a puzzle. 0 <= int <= max number of entries to a puzzle game
+// @throws IOException if there is an error sending response headers back to server
+// HTTP requests will be handled by a server and the server will respond back with SERVER RESPONSES
+REQUEST ::=  "/getAllPuzzles/" PLAYERID
+            | "/createGame/" PLAYERID "/" PUZZLE
+            | "/getAllActiveGames/" PLAYERID
+            | "/joinExistingGame/" PLAYERID "/" GAMEID
+            | "/exitGame/" PLAYERID
+            | "/guess/" PLAYERID "/" INDEX "/" GUESS
+            | "/erase/" PLAYERID
+            | "/check/" PLAYERID
+            | "/watchGame/" PLAYERID
+            
+PUZZLE ::= \w+
+PLAYERID ::= \w+
+GAMEID ::= [0-9]+
+GUESS ::= [A-Za-z]+
+INDEX ::= [0-9]+
+
+
+// SERVER RESPONSES
+// After an HTTP request handled by the server, the server will send a response back to the client.
+// Each response is headed with either a 200 success or 404 error response header.
+// If the response is a 404 error, a simple error message will be sent back to the client
+// If the response is a 200 success, the response is determined by the request:
+//  - getting all puzzles/games will return a string of puzzles/gameid's separated by commas
+//  - creating/joining a game will return a string consisting of a minimal puzzle string and string of player id's separated by commas. These two parts are separated by the character "|"
+//  - guess/erase will return an updated minimal puzzle string and a message if there is an error in guessing/erasing (@link Puzzle) separated by the character "|"
+//  - check will return an updated minimal puzzle string and the string value of a boolean to determine if the puzzle is completed and correct
+// Client will take these responses and parse it so responses can be displayed on the UI 
+RESPONSE ::= (PUZZLE ",")*
+            | (GAMEID ",")*
+            | (PLAYERID ",")*
+            | MINIMALPUZZLE "|" (PLAYERID ",")*
+            | MINIMALPUZZLE "|" (PLAYERID ",")* "|" ("|" MESSAGE)?
+            | MINIMALPUZZLE ("|" MESSAGE)?
+            | MESSAGE
+            
+PUZZLE ::= \w+
+PLAYERID ::= \w+
+GAMEID ::= [0-9]+
+MINIMALPUZZLE ::= FILE
+MESSAGE ::= '"' String '"';
+
+
+FILE ::= ">>" NAME DESCRIPTION ENTRY*;
+NAME ::= '"' String '"';
+DESCRIPTION ::= '"' String '"';
+ENTRY ::= "("  INDEX ","  CLUE "," DIRECTION "," ROW "," COL  "," LENGTH ")";
+INDEX ::= Int;
+CLUE ::= '"' String '"';
+DIRECTION ::= "DOWN" | "ACROSS";
+LENGTH ::= Int;
+ROW ::= Int;
+COL ::= Int;  
+
+String ::= [^"\r\n\t\\]*;
+Int ::= [0-9]+;
+whitespace ::= [ \t\r\n]+;
