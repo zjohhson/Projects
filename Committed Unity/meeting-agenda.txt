@@ -1,0 +1,7 @@
+Questions:
+
+1) We received feedback from teams that we should not just hard-code in recommendations for tags (i.e. if you like the environment, we will recommend transportation, parks, and recycling). How can we make our recommendation system more dynamic/robust without using ML since that is outside the scope of this project/class?
+
+2) How best should we go about creating incentives for the gamification system while still giving discretion to individual cities? We originally said we would leave the incentives of achieving a 'rank' in our game system up to cities, but we also want some of the incentives to be inherent to our app (i.e. users have benefits within the app itself). How do we balance these two ideas?
+
+3) There is obviously the inherent ethical dilemma behind our gaming system--what if a user does not align morally with many of their town's meeting agendas. Why should they be excluded from benefits for not going? Do you have any recommendations for getting around this problem?

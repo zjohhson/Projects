@@ -1,0 +1,2 @@
+# Proof of Concept
+Our PoC scope includes creating tags and setting up the overall layout of what types of information people will see pertaining to meeting information and users. We added functionality to add and remove users' interested tags (without UI validation that they are existing tags, though they are validated on the backend) as well. When creating a user, there is also a way to differentiate admin and general user (though we don't have authentication right now). We didn't include actions such as interested/upcoming meetings, which will be added in the MVP stage.
