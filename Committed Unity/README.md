@@ -1,10 +1,4 @@
-# [https://committedunity-mvp.herokuapp.com/](https://committedunity-mvp.herokuapp.com/)
-
-## he-hu-ho-jo
-
-# [https://committedunity-mvp.herokuapp.com/](https://committedunity-mvp.herokuapp.com/)
-
-## [he-hu-ho-jo]
+# [https://committedunity-mvp.herokuapp.com/](https://committedunity.herokuapp.com/)
 
 ### Purpose and Functionality
 
